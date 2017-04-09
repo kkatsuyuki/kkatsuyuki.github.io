@@ -1,0 +1,17 @@
+#+BEGIN_EXPORT html
+---
+layout: default
+---
+#+END_EXPORT
+* My repositories
+  - [[https://kkatsuyuki.github.io/myExcelVbaEmacsKey/][myExcelVbaEmacsKey]]
+    excel vba file to use emacs key bindings and some other useful procedures on Excel
+  - [[https://kkatsuyuki.github.io/addWifi/][addWifi]]
+    shell-script program to add the new wifi to =wpa_supplicant.conf=
+
+* Author's history
+
+* Blogs
+
+
+    
