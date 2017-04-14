@@ -14,6 +14,5 @@ layout: default
 * Author's history
 
 * Blogs
-
-
+  #+HTML: <a href="{{ site.url }}/posts/2017-04-14-introduction.html">intro </a>
     
