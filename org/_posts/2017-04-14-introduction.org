@@ -1,0 +1,9 @@
+#+BEGIN_EXPORT html
+---
+title: "Self-introduction"
+categories: introduction
+---
+#+END_EXPORT
+
+* test
+  I am testing the post page.

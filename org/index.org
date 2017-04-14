@@ -1,6 +1,5 @@
 #+BEGIN_EXPORT html
 ---
-layout: default
 ---
 #+END_EXPORT
 * My repositories
@@ -14,5 +13,5 @@ layout: default
 * Author's history
 
 * Blogs
-  #+HTML: <a href="{{ site.url }}/posts/2017-04-14-introduction.html">intro </a>
+  #+HTML: <a href="{{ site.url }}{% post_url 2017-04-14-introduction %}">intro </a>
     

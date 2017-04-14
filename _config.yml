@@ -1,7 +1,30 @@
-theme: jekyll-theme-cayman
+# Setup
+title:        "kkatsuyuki's github page"
+tagline:      My repos, blogs
+baseurl:      ""
+paginate:     5
 defaults:
   -
     scope:
-      path: "" # an empty string here means all files in the project
+      path: ""
     values:
       layout: "default"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+
+# About/contact
+author:
+  name:       kkatsuyuki
+  url:        https://github.com/kkatsuyuki
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
