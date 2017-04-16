@@ -15,6 +15,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+exclude: [org/]
 
 
 # About/contact
