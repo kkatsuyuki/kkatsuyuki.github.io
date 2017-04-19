@@ -1,7 +1,0 @@
-#+BEGIN_EXPORT html
----
-title: "ISCKON temple"
-categories: india
----
-#+END_EXPORT
-Today I went to ISCKON temple.
