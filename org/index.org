@@ -15,6 +15,10 @@
 
     Modular in-buffer completion framework for Emacs
 
+* My interests
+  I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
+  I want to make VBA programs to improve my Excel and Word now.
+
 * Blogs
   # #+HTML: <a href="{{ site.url }}{% post_url 2017-04-14-introduction %}">intro </a>
   #+BEGIN_EXPORT html
