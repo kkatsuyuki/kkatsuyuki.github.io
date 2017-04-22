@@ -1,0 +1,9 @@
+#+BEGIN_EXPORT html
+---
+title: "First visiting a customer"
+categories: India business
+---
+#+END_EXPORT
+
+Today I visited the customer without other Japanese employees
+for the first time since I had reached Bangalore.
