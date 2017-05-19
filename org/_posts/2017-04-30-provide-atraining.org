@@ -5,7 +5,7 @@ categories: India bussiness
 ---
 #+END_EXPORT
 
-Today B company's customers came to receive the training we provided.
+Today B company's customers came to have the training we provided.
 If I had included in the English discussion understading only 30% of 
 their explanation, it would have been normal. 
 But the problem was that I would provide the training for one and a half 
