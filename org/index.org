@@ -15,6 +15,10 @@
 
     Modular in-buffer completion framework for Emacs
 
+* Other softwares
+  - [[https://kkatsuyuki.github.io/notmuch-conf/][notmuch + emacs + offlineimap]]
+    
+    Show the configuration procedures of notmuch + emacs + offlineimap
 * My interests
   I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
   I want to make VBA programs to improve my Excel and Word now.
