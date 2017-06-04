@@ -19,6 +19,11 @@
   - [[https://kkatsuyuki.github.io/notmuch-conf/][notmuch + emacs + offlineimap]]
     
     Show the configuration procedures of notmuch + emacs + offlineimap
+
+* My gists
+  - [[https://gist.github.com/kkatsuyuki/fa930411a86169c3bb1f03337d4af280][eshell-bmk.el]]
+
+    On =eshell=, =bmk= command to =cd= to registered directories is available
 * My interests
   I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
   I want to make VBA programs to improve my Excel and Word now.
