@@ -15,7 +15,7 @@
 
     Modular in-buffer completion framework for Emacs
 
-* Other softwares
+* Procedures for configuring other softwares
   - [[https://kkatsuyuki.github.io/notmuch-conf/][notmuch + emacs + offlineimap]]
     
     Show the configuration procedures of notmuch + emacs + offlineimap
