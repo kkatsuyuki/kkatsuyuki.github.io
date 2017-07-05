@@ -24,6 +24,10 @@
   - [[https://gist.github.com/kkatsuyuki/fa930411a86169c3bb1f03337d4af280][eshell-bmk.el]]
 
     On =eshell=, =bmk= command to =cd= to registered directories is available
+  - [[https://gist.github.com/kkatsuyuki/ede09142b817f2e3b97e87ce8bc93736][eshell-completion.el]]
+
+    On =eshell=, complete =systemctl=, =pacman= and =sudo=, which needs subcommands.
+
 * My interests
   I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
   I want to make VBA programs to improve my Excel and Word now.
