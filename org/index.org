@@ -26,7 +26,7 @@
     On =eshell=, =bmk= command to =cd= to registered directories is available
   - [[https://gist.github.com/kkatsuyuki/ede09142b817f2e3b97e87ce8bc93736][eshell-completion.el]]
 
-    On =eshell=, complete =systemctl=, =pacman= and =sudo=, which needs subcommands.
+    On =eshell=, complete =systemctl=, =pacman=, =sudo= and =man= which needs subcommands.
 
 * My interests
   I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
