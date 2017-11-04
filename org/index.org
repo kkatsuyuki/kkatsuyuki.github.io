@@ -6,7 +6,7 @@
   - [[https://kkatsuyuki.github.io/myExcelVbaEmacsKey/][myExcelVbaEmacsKey]]
 
     Excel vba file to use emacs key bindings and some other useful procedures on Excel
-  - [[https://kkatsuyuki.github.io/addWifi/][addWifi]]
+  - [[https://kkatsuyuki.github.io/wifi-entries-setup/][wifi-entries-setup]]
 
     Shell-script program to add the new wifi to =wpa_supplicant.conf=
 
