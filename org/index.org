@@ -27,6 +27,11 @@
   - [[https://gist.github.com/kkatsuyuki/ede09142b817f2e3b97e87ce8bc93736][eshell-completion.el]]
 
     On =eshell=, complete =systemctl=, =pacman=, =sudo= and =man= which needs subcommands.
+  - [[https://gist.github.com/kkatsuyuki/69de02026945d20931897eaf67cd593b][org-auto-export-project.el]]
+
+    If you configure =org-publish-project-alist= of =org-mode= on your =emacs=,
+    this export the corresponding =html= file every time you edit and save an =org= file
+    in your project directory. I created this seeing [[http://blog.mkoga.net/2012/06/18/auto-publish-org-file/][publish after save on org-mode]].
 
 * My interests
   I'm interested in Emacs, Emacs-lisp, Linux, PIC, assembly. 
