@@ -1,0 +1,27 @@
+# theme: jekyll-theme-architect
+theme: jekyll-theme-minimal
+# # Setup
+# title:        "kkatsuyuki's github page"
+# tagline:      My repos, blogs
+# baseurl:      ""
+# paginate:     5
+# defaults:
+#   -
+#     scope:
+#       path: ""
+#     values:
+#       layout: "default"
+#   -
+#     scope:
+#       path: ""
+#       type: "posts"
+#     values:
+#       layout: "post"
+# exclude: [org/]
+
+
+# # About/contact
+# author:
+#   name:       kkatsuyuki
+#   url:        https://github.com/kkatsuyuki
+
