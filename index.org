@@ -1,0 +1,13 @@
+#+STARTUP: indent
+#+BEGIN_EXPORT html
+---
+layout: default
+---
+#+END_EXPORT
+* ソフトウェアについて
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+- [[./emacs-calc.html][emacs calc への誘い]]
+
+

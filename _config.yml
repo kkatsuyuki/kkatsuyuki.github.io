@@ -1,8 +1,10 @@
 theme: jekyll-theme-architect
 # theme: jekyll-theme-minimal
 # # Setup
-title:        "test"
-# tagline:      My repos, blogs
+title: Kurt の部屋
+# title: 僕の秘密基地
+# title: プログラマーの時
+# description:      My repos, blogs
 # baseurl:      ""
 # paginate:     5
 # defaults:

@@ -1,0 +1,133 @@
+---
+layout: default
+---
+<div id="outline-container-org44df9ac" class="outline-1">
+<h1 id="org44df9ac">emacs calc への誘い</h1>
+<div class="outline-text-1" id="text-org44df9ac">
+</div>
+<div id="outline-container-org0b907c9" class="outline-2">
+<h2 id="org0b907c9">悲しいことがありまして</h2>
+<div class="outline-text-2" id="text-org0b907c9">
+<p>
+<code>libreoffice</code> のスプレッドシートで3年くらい計算していたものが、先日
+開けなくなった。最近替えた古いPC でハードディスクが壊れたときに
+そのデータも壊れたのかわからないが、とにかくファイルが壊れてしまったのだ。
+大体 <code>git</code> で版管理しているのだが、 <code>libreoffice</code> のファイルは差分が見れない
+のでやっておらず、バックアップも壊れた後のデータしかなかった。
+計算し直すしかないな、と思ったが、もうこんな思いはしたくないとどうしたものか
+と考えていたときに、 <code>calc</code> を知った。
+</p>
+</div>
+</div>
+<div id="outline-container-orgd0f44fb" class="outline-2">
+<h2 id="orgd0f44fb">calc の特徴</h2>
+<div class="outline-text-2" id="text-orgd0f44fb">
+<p>
+数式に値を代入するといった計算をするときに便利なツールで <code>emacs</code> 上で
+動作します。
+</p>
+
+<p>
+僕の場合は今まで電子回路の計算をスプレッドシートにやっていたのを
+<code>emacs</code> の <code>org-mode</code> + <code>calc</code> を使ってやることができました。 文書を書く+計算
+ができるのがいいです。それにファイルは text データとなるため、
+<code>git</code> で版管理したときに差分が見えるのも良いです。
+</p>
+</div>
+</div>
+<div id="outline-container-org9d3a39f" class="outline-2">
+<h2 id="org9d3a39f">使い方</h2>
+<div class="outline-text-2" id="text-org9d3a39f">
+<p>
+<code>org-mode</code> + <code>calc</code> で計算と文書を書くことを両方行えます。
+<code>org-mode</code> でバッファ内に文章と式を書いて、計算させたいときに
+<code>calc</code> のコマンドを実行して式を計算させます。式を <code>calc</code> に認識させるには、
+式の前後に空行を入れたり、区切り文字を入力する必要があります。
+</p>
+
+<p>
+式内で ':=' は代入、'=&gt;' は左辺を評価したものが右辺に出力され、例えば
+</p>
+
+<p>
+foo := 1
+</p>
+
+<p>
+bar := foo * 4 =&gt;
+</p>
+
+<p>
+bar =&gt;
+</p>
+
+<p>
+は、評価後は、以下のようになります。
+</p>
+
+<p>
+foo := 1
+</p>
+
+<p>
+bar := foo 4 =&gt; 4
+</p>
+
+<p>
+bar =&gt; 4
+</p>
+
+<p>
+上で ' '(Space) は * と同じ意味です（スカラーとベクトルの掛け算だと ' ' が意図通りに動かなかった）。
+<code>calc</code> が評価後に * を ' '(Space) に置き換えることがあります。
+</p>
+
+<p>
+上記のような文書内に式を埋め込んで計算させるような使い方の場合、主要なコマンドは、
+</p>
+
+<ul class="org-ul">
+<li><code>C-x * a</code>: バッファ上の ':=' or '=&gt;' を含む数式をactivate (embeded mode で登録)し、'=&gt;' の右辺が適切にアップデートされるようにします</li>
+<li><code>C-x * u</code>: カーソル下の数式とそれが依存する数式を更新（評価）します</li>
+<li><code>C-u n C-x * u</code> (n は数値): バッファ内の active な '=&gt;' を含む数式を更新（評価）します</li>
+</ul>
+
+<p>
+くらいでした。3つくらいならきっと記憶に留められると思います。
+</p>
+
+<p>
+上が僕の使い方の概要ですが、実際に使うときは、うまく動かないなどのトラブルがよく起こるので、
+<code>calc</code> のinfo を読んで学習したほうが良いです。
+</p>
+
+<ul class="org-ul">
+<li>RPN (Reverse Polish notation) での計算、stack</li>
+<li>代数(algebra)形式の計算</li>
+<li>embedded mode</li>
+<li>Assignments in Embedded Mode （embedded mode での代入）</li>
+</ul>
+
+<p>
+あたりをざっくり理解すればきっと使えます。RPN 形式での計算は基礎なので
+あまり使わなくても知っていたほうがいいと思います。
+また、上の3つのコマンドは Assignments in Embedded mode の章で詳しく説明されています。
+</p>
+</div>
+</div>
+<div id="outline-container-org2577f85" class="outline-2">
+<h2 id="org2577f85">その他</h2>
+<div class="outline-text-2" id="text-org2577f85">
+<p>
+式を計算してくれることにかなり感動したのですが、出した式をグラフにプロットさせたい
+と思うことがありました。 <code>calc</code> は、 <code>gnuplot</code> を使ってグラフ出力もできます。
+ただ、その場合 embedded mode に入って stack を使ってグラフ出力させることになり、
+使う機能と扱うコマンドが増えてきます。
+また、出力するグラフのグリッドやX軸、Y軸のラベル設定、色など <code>gnuplot</code> 周りの設定
+も普段 <code>gnuplot</code> を使わないのでなかなか面倒そうです。ということで、グラフの作成は
+<code>calc</code> で行わず、 <code>libreoffice</code> で行うことにしました。35才になると、一貫性とか、
+整っていることよりも、学習コストとか、覚えやすいかとかを考慮してしまいます。
+</p>
+</div>
+</div>
+</div>
