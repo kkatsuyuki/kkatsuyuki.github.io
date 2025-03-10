@@ -1,13 +1,16 @@
 ---
-layout: default
+layout: page
 ---
-<div id="outline-container-org44df9ac" class="outline-1">
-<h1 id="org44df9ac">emacs calc への誘い</h1>
-<div class="outline-text-1" id="text-org44df9ac">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2025-03-10 Mon&gt;</span></span>
+</p>
+<div id="outline-container-org0b18116" class="outline-1">
+<h1 id="org0b18116">emacs calc への誘い</h1>
+<div class="outline-text-1" id="text-org0b18116">
 </div>
-<div id="outline-container-org0b907c9" class="outline-2">
-<h2 id="org0b907c9">悲しいことがありまして</h2>
-<div class="outline-text-2" id="text-org0b907c9">
+<div id="outline-container-orgaf0af44" class="outline-2">
+<h2 id="orgaf0af44">悲しいことがありまして</h2>
+<div class="outline-text-2" id="text-orgaf0af44">
 <p>
 <code>libreoffice</code> のスプレッドシートで3年くらい計算していたものが、先日
 開けなくなった。最近替えた古いPC でハードディスクが壊れたときに
@@ -19,9 +22,9 @@ layout: default
 </p>
 </div>
 </div>
-<div id="outline-container-orgd0f44fb" class="outline-2">
-<h2 id="orgd0f44fb">calc の特徴</h2>
-<div class="outline-text-2" id="text-orgd0f44fb">
+<div id="outline-container-orgccbce02" class="outline-2">
+<h2 id="orgccbce02">calc の特徴</h2>
+<div class="outline-text-2" id="text-orgccbce02">
 <p>
 数式に値を代入するといった計算をするときに便利なツールで <code>emacs</code> 上で
 動作します。
@@ -35,9 +38,9 @@ layout: default
 </p>
 </div>
 </div>
-<div id="outline-container-org9d3a39f" class="outline-2">
-<h2 id="org9d3a39f">使い方</h2>
-<div class="outline-text-2" id="text-org9d3a39f">
+<div id="outline-container-orga731422" class="outline-2">
+<h2 id="orga731422">使い方</h2>
+<div class="outline-text-2" id="text-orga731422">
 <p>
 <code>org-mode</code> + <code>calc</code> で計算と文書を書くことを両方行えます。
 <code>org-mode</code> でバッファ内に文章と式を書いて、計算させたいときに
@@ -46,7 +49,7 @@ layout: default
 </p>
 
 <p>
-式内で ':=' は代入、'=&gt;' は左辺を評価したものが右辺に出力され、例えば
+式内で <code>:=</code> は代入、 <code>=&gt;</code> は左辺を評価したものが右辺に出力されます。例えば
 </p>
 
 <p>
@@ -78,8 +81,9 @@ bar =&gt; 4
 </p>
 
 <p>
-上で ' '(Space) は * と同じ意味です（スカラーとベクトルの掛け算だと ' ' が意図通りに動かなかった）。
-<code>calc</code> が評価後に * を ' '(Space) に置き換えることがあります。
+上で <code>␣</code> (Space) は <code>*</code> と同じ意味です（スカラーとベクトルの掛け算だと <code>␣</code> が意図通りに
+動かなかったこともあるので稀に使い分けが必要です）。
+<code>calc</code> が評価後に <code>*</code> を <code>␣</code> に置き換えることがあります。
 </p>
 
 <p>
@@ -87,9 +91,9 @@ bar =&gt; 4
 </p>
 
 <ul class="org-ul">
-<li><code>C-x * a</code>: バッファ上の ':=' or '=&gt;' を含む数式をactivate (embeded mode で登録)し、'=&gt;' の右辺が適切にアップデートされるようにします</li>
+<li><code>C-x * a</code>: バッファ上の <code>:=</code> or <code>=&gt;</code> を含む数式をactivate (embeded mode で登録)し、 <code>=&gt;</code> の右辺が適切にアップデートされるようにします</li>
 <li><code>C-x * u</code>: カーソル下の数式とそれが依存する数式を更新（評価）します</li>
-<li><code>C-u n C-x * u</code> (n は数値): バッファ内の active な '=&gt;' を含む数式を更新（評価）します</li>
+<li><code>C-u n C-x * u</code> (n は数値): バッファ内の active な <code>=&gt;</code> を含む数式を更新（評価）します</li>
 </ul>
 
 <p>
@@ -115,9 +119,9 @@ bar =&gt; 4
 </p>
 </div>
 </div>
-<div id="outline-container-org2577f85" class="outline-2">
-<h2 id="org2577f85">その他</h2>
-<div class="outline-text-2" id="text-org2577f85">
+<div id="outline-container-org296e9ad" class="outline-2">
+<h2 id="org296e9ad">その他</h2>
+<div class="outline-text-2" id="text-org296e9ad">
 <p>
 式を計算してくれることにかなり感動したのですが、出した式をグラフにプロットさせたい
 と思うことがありました。 <code>calc</code> は、 <code>gnuplot</code> を使ってグラフ出力もできます。
