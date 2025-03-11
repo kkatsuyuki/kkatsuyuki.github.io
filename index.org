@@ -1,13 +1,14 @@
+#+OPTIONS: num:nil
 #+STARTUP: indent
 #+BEGIN_EXPORT html
 ---
 layout: default
 ---
 #+END_EXPORT
+* 好きなもの
+Emacs, common-lisp, Linux 全般（systemd, shell, autotools など）
+
 * ソフトウェアについて
-:PROPERTIES:
-:UNNUMBERED: t
-:END:
 - [[./emacs-calc.html][emacs calc への誘い]]
 
 
