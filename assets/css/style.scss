@@ -2,7 +2,7 @@
 ---
 
 @import "{{ site.theme }}";
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Zen+Kurenaido&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Yomogi&family=Zen+Kurenaido&display=swap');
 
 body {
   font-family: 'Helvetica Neue', 'M PLUS 1p', Helvetica, Arial, serif;
@@ -16,7 +16,7 @@ body {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  font-family: 'Zen Kurenaido', 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Yomogi', 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
   border-bottom: solid 1px #275da1;
 }
