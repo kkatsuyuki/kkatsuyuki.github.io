@@ -11,4 +11,4 @@ Emacs, common-lisp, Linux 全般（systemd, shell, autotools など）
 * ソフトウェアについて
 - [[./emacs-calc.html][emacs calc への誘い]]
 
-
+* [[./blog.html][ブログ]]

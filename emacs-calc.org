@@ -2,10 +2,9 @@
 #+BEGIN_EXPORT html
 ---
 layout: page
+date: 2025/03/13
 ---
 #+END_EXPORT
-<2025-03-10 Mon>
-
 * emacs calc への誘い
 :PROPERTIES:
 :UNNUMBERED: t
