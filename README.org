@@ -1,10 +1,17 @@
+#+STARTUP: indent
 * 重要なこと
-  - =index.html= がトップページ
-  - jekyll で言うページ(Page)は、プロジェクトのroot ディレクトリに置く。別プロジェクトにある
-    場合はリンクでつなぐ。
-  - トップページ以外のページ(Page)は、 =_layouts/page.html= のlayout を使用する。
-    使用することで、末尾にトップページに戻るリンクが入る。
-  - =assets/css/style.scss= でフォントなどのスタイルを変えている。Web フォントを
-    できるだけ使うようにしている。 
-  - ブログ以外の他のページ(Page)は、プロジェクトのroot ディレクトリに置く。別プロジェクトにある
-    場合はリンクでつなぐ。
+- =index.html= がトップページ
+- =.dir-local.el= にpublish の設定をした。
+  ~org-publish-project~ でこのプロジェクトのorgファイル をhtml に変換できる。
+- jekyll で言うページ(Page)は、プロジェクトのroot ディレクトリに置く。別プロジェクトにある
+  場合はリンクでつなぐ。
+- トップページ以外のページ(Page)は、 =_layouts/page.html= のlayout を使用する。
+  使用することで、末尾にトップページに戻るリンクが入る。
+- jekyll で言うポスト(Post)は、orgファイルを =_org/= に置く。publish 時に
+  htmlファイルに変換され、 =_posts/= フォルダに置かれる。
+- ポスト(Post) は =_layouts/post.html= のlayout を使用する。使用することで
+  日付やタイトルやリンクが入る。  
+- =assets/css/style.scss= でフォントなどのスタイルを変えている。Web フォントを
+  できるだけ使うようにしている。 
+
+
