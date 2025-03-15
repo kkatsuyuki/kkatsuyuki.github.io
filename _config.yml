@@ -27,3 +27,5 @@ title: Kurtの部屋
 #   name:       kkatsuyuki
 #   url:        https://github.com/kkatsuyuki
 
+plugins:
+  - jekyll-sitemap
