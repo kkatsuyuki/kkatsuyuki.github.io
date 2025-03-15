@@ -6,6 +6,7 @@
 			    :base-directory ,proot
 			    :publishing-directory ,proot
 			    :publishing-function org-html-publish-to-html
+			    :exclude "README"
 			    :body-only t)
 			   ("posts"
 			    :base-directory ,(concat proot "_org/")
