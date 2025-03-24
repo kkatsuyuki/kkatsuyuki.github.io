@@ -1,0 +1,162 @@
+---
+layout: page
+date: 2025/03/24
+---
+<div id="outline-container-orgb5e2f7d" class="outline-1">
+<h1 id="orgb5e2f7d">emacs でのhelm とmozc</h1>
+<div class="outline-text-1" id="text-orgb5e2f7d">
+</div>
+<div id="outline-container-org93b7e7d" class="outline-2">
+<h2 id="org93b7e7d">helm 内でmozc の日本語入力が "C-m" で確定できない</h2>
+<div class="outline-text-2" id="text-org93b7e7d">
+<p>
+<code>helm-find-files</code> で日本語ファイル名のファイルを作りたいことがあり、日本語入力、"C-m"
+で確定しようとしたら、入力は確定されず、 その代わりにhelm セッションが閉じ、
+入力しかけの状態のバッファ名でバッファが開いてしまう問題に直面した。
+僕は日本語入力は <code>mozc</code> を使っており、emacs 上では、 <code>emacs-mozc</code> をインタフェース
+として使っている。僕の環境は、
+</p>
+
+<ul class="org-ul">
+<li>Linux 6.13.7 (Arch Linux)</li>
+<li>emacs 30.1</li>
+<li>helm 20250228.640 (melpa からインストール)</li>
+<li>mozc 2.30.5618.102.20241010-1 (arch の aur パッケージからインストール)</li>
+<li>emacs-mozc 2.30.5618.102-1 (arch の aur パッケージからインストール)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge0da6e2" class="outline-2">
+<h2 id="orge0da6e2">原因と解決策</h2>
+<div class="outline-text-2" id="text-orge0da6e2">
+<p>
+<code>edubug</code> でデバッグしたところ
+helm 中は、"C-m" といったmozc で認識可能なキーバインドが <code>mozc.el</code> に行き着かずに、
+helm に取られていました。
+</p>
+
+<p>
+<code>mozc.el</code> では、 <code>minor-mode-map-alist</code> の先頭に mozc 用の
+キー設定を登録して、キーを認識させています。 <code>minor-mode-map-alist</code> 内では、
+helm 用のキー設定は mozc用のキー設定よりも後ろに置かれていたので、
+helm の方が優先度が低そうでした。しかし、
+helm は <code>minor-mode-overriding-map-alist</code> に <code>helm-find-files</code> や <code>helm-mini</code>
+用のキー設定を配置し、ベースのhelm 用のキー設定を上書きしていました。
+<code>minor-mode-overriding-map-alist</code> は、
+<code>minor-mode-map-alist</code> よりも優先されるため、 <code>helm-find-files</code> や <code>helm-mini</code>
+用のキーマップがmozc 用のキーマップよりも優先してキーを受けていました。
+さらに helm は <code>minor-mode-overriding-map-alist</code> を動作中にアップデートしてしまう
+ので、ここの先頭にmozc用のキー設定を追加するのはうまくいきませんでした。
+</p>
+
+<p>
+elisp の <code>info</code> を見ると、 <code>minor-mode-overriding-map-alist</code> に登録されている
+キー設定よりも、 <code>emulation-mode-map-alists</code> に登録されているキー設定の方が
+優先して使用されるので、今回はこれを使用することにしました。ただし、
+<code>emulation-mode-map-alists</code> は本来、複数のマイナーモードキーマップを使えるように
+するための変数なので、本来の使い方ではなさそうです。以下を設定ファイルに加えます。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(defvar mozc--keymap-alist `((mozc-mode . ,mozc-mode-map)))
+
+(add-hook 'mozc-mode-hook
+          (lambda ()
+            ;; Put the keymap alist symbol at the top of `emulation-mode-map-alists'
+            (setq emulation-mode-map-alists
+                  (cons 'mozc--keymap-alist
+                        (delq 'mozc--keymap-alist emulation-mode-map-alists)))))
+
+;; modified for mozc--keymap-alist
+(defsubst mozc-enable-keymap ()
+  "Enable Mozc keymap again."
+  (setcdr (assq 'mozc-mode minor-mode-map-alist)
+          mozc-mode-map)
+  (setcdr (assq 'mozc-mode mozc--keymap-alist)
+          mozc-mode-map))
+
+(defsubst mozc-disable-keymap ()
+  "Disable Mozc keymap temporarily."
+  (setcdr (assq 'mozc-mode minor-mode-map-alist)
+          mozc-empty-map)
+  (setcdr (assq 'mozc-mode mozc--keymap-alist)
+          mozc-empty-map))
+
+;; redifined due to the change of the above inline functions
+(defun mozc-fall-back-on-default-binding (last-event)
+  "Execute a command as if the command loop does.
+Read a complete set of user input and execute the command bound to
+the key sequence in almost the same way of the command loop.
+
+LAST-EVENT is the last event which a user has input.  The last event is pushed
+back and treated as if it's the first event of a next key sequence."
+  (unwind-protect
+      (progn
+        ;; Disable the keymap in this unwind-protect.
+        (mozc-disable-keymap)
+        ;; Push back the last event on the event queue.
+        (and last-event (push last-event unread-command-events))
+        ;; Read and execute a command.
+        (let* ((keys (read-key-sequence-vector nil))
+               (bind (key-binding keys t)))
+          ;; Pretend `mozc-handle-event' command was not running and just
+          ;; the default binding is running.
+          (setq last-command-event (aref keys (1- (length keys))))
+          (setq this-command bind)
+          (if bind
+              (call-interactively bind nil keys)
+            (let (message-log-max)
+              (message "%s is undefined" (key-description keys))
+              (undefined)))))
+    ;; Recover the keymap.
+    (mozc-enable-keymap)))
+</pre>
+</div>
+
+<p>
+<code>mozc-enable-keymap</code>, <code>mozc-disable-keymap</code>, <code>mozc-fall-back-on-default-binding</code>
+を再定義しているのは、 <code>mozc-enable-keymap</code>, <code>mozc-disable-keymap</code> が <code>defsubst</code>
+で定義されている inline関数のためです。(僕も今回始めて <code>defsubst</code> や inline 関数の意味を
+知りました。)
+</p>
+
+<p>
+この設定で、helm 中の minibuffer でも <code>mozc-mode-map</code> が優先され、"C-m"
+が mozc に届き入力を確定することができます。
+</p>
+
+<p>
+ここまでで僕は主に
+</p>
+<ul class="org-ul">
+<li><code>mozc.el</code></li>
+<li><code>helm-core.el</code></li>
+<li>elisp の info</li>
+</ul>
+
+<p>
+を見ました。
+</p>
+</div>
+</div>
+<div id="outline-container-org9c18b48" class="outline-2">
+<h2 id="org9c18b48">思ったこと</h2>
+<div class="outline-text-2" id="text-org9c18b48">
+<p>
+今回の調査と解決策を確定させたり、ブラッシュアップするのに
+多分15h くらいかかってしまいました。 <code>helm</code> あるいは <code>mozc</code>
+のソースコードに修正を適用するのを狙っていましたが、一方のソフト
+のために他方を変えるみたいなことになり、一つのソフトとして
+ソースコードがいびつになりそうなのでやめました。こういった細かい要望は
+というのはユーザが埋めるものなのでしょうか。
+</p>
+
+<p>
+今回の件で、 <code>helm</code> のメンテナに問題を報告したのですが、頑張って英語で質問を
+書くまでにいろいろ確認してってやっていくと、だんだんと熱が入っていって、
+メンテナからもアドバイスがあったりしてってとなり、自分で解いてみたくなる
+ものですね。
+</p>
+</div>
+</div>
+</div>

@@ -1,0 +1,130 @@
+#+STARTUP: indent
+#+BEGIN_EXPORT html
+---
+layout: page
+date: 2025/03/24
+---
+#+END_EXPORT
+* emacs でのhelm とmozc
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+** helm 内でmozc の日本語入力が "C-m" で確定できない
+=helm-find-files= で日本語ファイル名のファイルを作りたいことがあり、日本語入力、"C-m"
+で確定しようとしたら、入力は確定されず、 その代わりにhelm セッションが閉じ、
+入力しかけの状態のバッファ名でバッファが開いてしまう問題に直面した。
+僕は日本語入力は =mozc= を使っており、emacs 上では、 =emacs-mozc= をインタフェース
+として使っている。僕の環境は、
+
+- Linux 6.13.7 (Arch Linux)
+- emacs 30.1
+- helm 20250228.640 (melpa からインストール)
+- mozc 2.30.5618.102.20241010-1 (arch の aur パッケージからインストール)
+- emacs-mozc 2.30.5618.102-1 (arch の aur パッケージからインストール)
+
+** 原因と解決策
+=edubug= でデバッグしたところ
+helm 中は、"C-m" といったmozc で認識可能なキーバインドが =mozc.el= に行き着かずに、
+helm に取られていました。
+
+=mozc.el= では、 =minor-mode-map-alist= の先頭に mozc 用の
+キー設定を登録して、キーを認識させています。 =minor-mode-map-alist= 内では、
+helm 用のキー設定は mozc用のキー設定よりも後ろに置かれていたので、
+helm の方が優先度が低そうでした。しかし、
+helm は =minor-mode-overriding-map-alist= に =helm-find-files= や =helm-mini=
+用のキー設定を配置し、ベースのhelm 用のキー設定を上書きしていました。
+=minor-mode-overriding-map-alist= は、
+=minor-mode-map-alist= よりも優先されるため、 =helm-find-files= や =helm-mini=
+用のキーマップがmozc 用のキーマップよりも優先してキーを受けていました。
+さらに helm は =minor-mode-overriding-map-alist= を動作中にアップデートしてしまう
+ので、ここの先頭にmozc用のキー設定を追加するのはうまくいきませんでした。
+
+elisp の =info= を見ると、 =minor-mode-overriding-map-alist= に登録されている
+キー設定よりも、 =emulation-mode-map-alists= に登録されているキー設定の方が
+優先して使用されるので、今回はこれを使用することにしました。ただし、
+=emulation-mode-map-alists= は本来、複数のマイナーモードキーマップを使えるように
+するための変数なので、本来の使い方ではなさそうです。以下を設定ファイルに加えます。
+
+#+begin_src emacs-lisp
+  (defvar mozc--keymap-alist `((mozc-mode . ,mozc-mode-map)))
+
+  (add-hook 'mozc-mode-hook
+  	  (lambda ()
+  	    ;; Put the keymap alist symbol at the top of `emulation-mode-map-alists'
+  	    (setq emulation-mode-map-alists
+  		  (cons 'mozc--keymap-alist
+  			(delq 'mozc--keymap-alist emulation-mode-map-alists)))))
+
+  ;; modified for mozc--keymap-alist
+  (defsubst mozc-enable-keymap ()
+    "Enable Mozc keymap again."
+    (setcdr (assq 'mozc-mode minor-mode-map-alist)
+            mozc-mode-map)
+    (setcdr (assq 'mozc-mode mozc--keymap-alist)
+            mozc-mode-map))
+
+  (defsubst mozc-disable-keymap ()
+    "Disable Mozc keymap temporarily."
+    (setcdr (assq 'mozc-mode minor-mode-map-alist)
+            mozc-empty-map)
+    (setcdr (assq 'mozc-mode mozc--keymap-alist)
+            mozc-empty-map))
+
+  ;; redifined due to the change of the above inline functions
+  (defun mozc-fall-back-on-default-binding (last-event)
+    "Execute a command as if the command loop does.
+  Read a complete set of user input and execute the command bound to
+  the key sequence in almost the same way of the command loop.
+
+  LAST-EVENT is the last event which a user has input.  The last event is pushed
+  back and treated as if it's the first event of a next key sequence."
+    (unwind-protect
+        (progn
+          ;; Disable the keymap in this unwind-protect.
+          (mozc-disable-keymap)
+          ;; Push back the last event on the event queue.
+          (and last-event (push last-event unread-command-events))
+          ;; Read and execute a command.
+          (let* ((keys (read-key-sequence-vector nil))
+  	       (bind (key-binding keys t)))
+            ;; Pretend `mozc-handle-event' command was not running and just
+            ;; the default binding is running.
+            (setq last-command-event (aref keys (1- (length keys))))
+            (setq this-command bind)
+            (if bind
+  	      (call-interactively bind nil keys)
+  	    (let (message-log-max)
+  	      (message "%s is undefined" (key-description keys))
+  	      (undefined)))))
+      ;; Recover the keymap.
+      (mozc-enable-keymap)))
+#+end_src
+
+=mozc-enable-keymap=, =mozc-disable-keymap=, =mozc-fall-back-on-default-binding=
+を再定義しているのは、 =mozc-enable-keymap=, =mozc-disable-keymap= が =defsubst=
+で定義されている inline関数のためです。(僕も今回始めて =defsubst= や inline 関数の意味を
+知りました。)
+
+この設定で、helm 中の minibuffer でも =mozc-mode-map= が優先され、"C-m"
+が mozc に届き入力を確定することができます。
+
+ここまでで僕は主に
+- =mozc.el=
+- =helm-core.el=
+- elisp の info
+
+を見ました。
+
+** 思ったこと
+今回の調査と解決策を確定させたり、ブラッシュアップするのに
+多分15h くらいかかってしまいました。 =helm= あるいは =mozc=
+のソースコードに修正を適用するのを狙っていましたが、一方のソフト
+のために他方を変えるみたいなことになり、一つのソフトとして
+ソースコードがいびつになりそうなのでやめました。こういった細かい要望は
+というのはユーザが埋めるものなのでしょうか。
+
+今回の件で、 =helm= のメンテナに問題を報告したのですが、頑張って英語で質問を
+書くまでにいろいろ確認してってやっていくと、だんだんと熱が入っていって、
+メンテナからもアドバイスがあったりしてってとなり、自分で解いてみたくなる
+ものですね。
+

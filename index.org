@@ -10,5 +10,6 @@ Emacs, common-lisp, Linux 全般（systemd, shell, autotools など）
 
 * ソフトウェアについて
 - [[./emacs-calc.html][emacs calc への誘い]]
+- [[./emacs-helm-mozc.html][emacs でのhelm とmozc]]
 
 * [[./blog.html][ブログ]]
