@@ -7,4 +7,8 @@ layout: default
 
 {{ content }}
 
-[<a href="../../../blog.html">Back</a>]
+{% if page.categories contains "software" %}
+[<a href="{{ "index.html" | relative_url }}">Home</a>]
+{% else %}
+[<a href="{{ "blog.html" | relative_url }}">Back</a>]
+{% endif %}

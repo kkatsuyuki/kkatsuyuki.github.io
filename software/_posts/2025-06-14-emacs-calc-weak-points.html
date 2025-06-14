@@ -1,10 +1,8 @@
 ---
-layout: page
+layout: post
 date: 2025/06/14
+title: emacs calc のバグ？
 ---
-<div id="outline-container-org41ee652" class="outline-1">
-<h1 id="org41ee652">emacs calc のバグ？</h1>
-<div class="outline-text-1" id="text-org41ee652">
 <p>
 昨日emacs calc を使用して計算を行っていましたが、シンプルなバグ？
 に直面しました。
@@ -13,7 +11,7 @@ date: 2025/06/14
 <p>
 calc を normal mode で使用し、
 </p>
-<pre class="example" id="orgdb81018">
+<pre class="example" id="org6487ab3">
 1: i sqrt(-3 - 7.79422863405 / pi)  1:  -2.34114929669
 
 ' sqrt(3+9 sqrt(3)/2/pi) &lt;RET&gt;        = &lt;RET&gt;
@@ -29,7 +27,7 @@ calc info も同じ記法で説明されているのでそれにならいまし�
 <p>
 さらに、
 </p>
-<pre class="example" id="org96de614">
+<pre class="example" id="org9b3cb26">
 1:  i sqrt(-1 - 1.73205080757 / pi) + 1     1:  -0.2455235427
 
 ' 1 + sqrt(1 + sqrt(3) / pi)                  = &lt;RET&gt;
@@ -45,5 +43,3 @@ sqrt の項が負のまま計算されてしまいます。
 emacs calc きっと少数派なのでこういうバグが直されずにそのままに
 なっているような気がします。
 </p>
-</div>
-</div>

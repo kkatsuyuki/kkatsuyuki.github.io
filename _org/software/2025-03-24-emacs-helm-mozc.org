@@ -1,15 +1,13 @@
 #+STARTUP: indent
+#+OPTIONS: num:nil
 #+BEGIN_EXPORT html
 ---
-layout: page
+layout: post
 date: 2025/03/24
+title: emacs でのhelm とmozc
 ---
 #+END_EXPORT
-* emacs でのhelm とmozc
-:PROPERTIES:
-:UNNUMBERED: t
-:END:
-** helm 内でmozc の日本語入力が "C-m" で確定できない
+* helm 内でmozc の日本語入力が "C-m" で確定できない
 =helm-find-files= で日本語ファイル名のファイルを作りたいことがあり、日本語入力、"C-m"
 で確定しようとしたら、入力は確定されず、 その代わりにhelm セッションが閉じ、
 入力しかけの状態のバッファ名でバッファが開いてしまう問題に直面した。
@@ -22,7 +20,7 @@ date: 2025/03/24
 - mozc 2.30.5618.102.20241010-1 (arch の aur パッケージからインストール)
 - emacs-mozc 2.30.5618.102-1 (arch の aur パッケージからインストール)
 
-** 原因と解決策
+* 原因と解決策
 =edubug= でデバッグしたところ
 helm 中は、"C-m" といったmozc で認識可能なキーバインドが =mozc.el= に行き着かずに、
 helm に取られていました。
@@ -115,7 +113,7 @@ elisp の =info= を見ると、 =minor-mode-overriding-map-alist= に登録さ�
 
 を見ました。
 
-** 思ったこと
+* 思ったこと
 今回の調査と解決策を確定させたり、ブラッシュアップするのに
 多分15h くらいかかってしまいました。 =helm= あるいは =mozc=
 のソースコードに修正を適用するのを狙っていましたが、一方のソフト

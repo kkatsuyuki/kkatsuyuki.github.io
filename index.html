@@ -1,24 +1,25 @@
 ---
 layout: default
 ---
-<div id="outline-container-org789cf66" class="outline-1">
-<h1 id="org789cf66">好きなもの</h1>
-<div class="outline-text-1" id="text-org789cf66">
+<div id="outline-container-org789cf66" class="outline-2">
+<h2 id="org789cf66">好きなもの</h2>
+<div class="outline-text-2" id="text-org789cf66">
 <p>
 Emacs, common-lisp, Linux 全般（systemd, shell, autotools など）
 </p>
 </div>
 </div>
-<div id="outline-container-org1203793" class="outline-1">
-<h1 id="org1203793">ソフトウェアについて</h1>
-<div class="outline-text-1" id="text-org1203793">
-<ul class="org-ul">
-<li><a href="./emacs-calc.html">emacs calc への誘い</a></li>
-<li><a href="./emacs-helm-mozc.html">emacs でのhelm とmozc</a></li>
-<li><a href="./emacs-calc-weak-points.html">emacs calc のバグ？</a></li>
+<div id="outline-container-org1203793" class="outline-2">
+<h2 id="org1203793">ソフトウェアについて</h2>
+<div class="outline-text-2" id="text-org1203793">
+<ul>
+{% for post in site.categories.software %}
+<li><a href="{{ post.url }}">{{ post.title }}</a>
+<{{ post.date | date: "%Y-%m-%d %a" }}></li>
+{% endfor %}
 </ul>
 </div>
 </div>
-<div id="outline-container-org00b0b0c" class="outline-1">
-<h1 id="org00b0b0c"><a href="./blog.html">ブログ</a></h1>
+<div id="outline-container-org00b0b0c" class="outline-2">
+<h2 id="org00b0b0c"><a href="./blog.html">ブログ</a></h2>
 </div>

@@ -3,6 +3,7 @@
 #+BEGIN_EXPORT html
 ---
 layout: post
+categories: blog
 ---
 #+END_EXPORT
 ブログを作ってみた。これから日常で起こったことを書いていこうと思う。

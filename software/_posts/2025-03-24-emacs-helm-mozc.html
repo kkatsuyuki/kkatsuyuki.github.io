@@ -1,14 +1,11 @@
 ---
-layout: page
+layout: post
 date: 2025/03/24
+title: emacs でのhelm とmozc
 ---
-<div id="outline-container-orgb5e2f7d" class="outline-1">
-<h1 id="orgb5e2f7d">emacs でのhelm とmozc</h1>
-<div class="outline-text-1" id="text-orgb5e2f7d">
-</div>
-<div id="outline-container-org93b7e7d" class="outline-2">
-<h2 id="org93b7e7d">helm 内でmozc の日本語入力が "C-m" で確定できない</h2>
-<div class="outline-text-2" id="text-org93b7e7d">
+<div id="outline-container-org0959219" class="outline-2">
+<h2 id="org0959219">helm 内でmozc の日本語入力が "C-m" で確定できない</h2>
+<div class="outline-text-2" id="text-org0959219">
 <p>
 <code>helm-find-files</code> で日本語ファイル名のファイルを作りたいことがあり、日本語入力、"C-m"
 で確定しようとしたら、入力は確定されず、 その代わりにhelm セッションが閉じ、
@@ -26,9 +23,9 @@ date: 2025/03/24
 </ul>
 </div>
 </div>
-<div id="outline-container-orge0da6e2" class="outline-2">
-<h2 id="orge0da6e2">原因と解決策</h2>
-<div class="outline-text-2" id="text-orge0da6e2">
+<div id="outline-container-orgb975412" class="outline-2">
+<h2 id="orgb975412">原因と解決策</h2>
+<div class="outline-text-2" id="text-orgb975412">
 <p>
 <code>edubug</code> でデバッグしたところ
 helm 中は、"C-m" といったmozc で認識可能なキーバインドが <code>mozc.el</code> に行き着かずに、
@@ -139,9 +136,9 @@ back and treated as if it's the first event of a next key sequence."
 </p>
 </div>
 </div>
-<div id="outline-container-org9c18b48" class="outline-2">
-<h2 id="org9c18b48">思ったこと</h2>
-<div class="outline-text-2" id="text-org9c18b48">
+<div id="outline-container-org77667e5" class="outline-2">
+<h2 id="org77667e5">思ったこと</h2>
+<div class="outline-text-2" id="text-org77667e5">
 <p>
 今回の調査と解決策を確定させたり、ブラッシュアップするのに
 多分15h くらいかかってしまいました。 <code>helm</code> あるいは <code>mozc</code>
@@ -157,6 +154,5 @@ back and treated as if it's the first event of a next key sequence."
 メンテナからもアドバイスがあったりしてってとなり、自分で解いてみたくなる
 ものですね。
 </p>
-</div>
 </div>
 </div>
