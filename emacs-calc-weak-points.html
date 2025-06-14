@@ -1,0 +1,49 @@
+---
+layout: page
+date: 2025/06/14
+---
+<div id="outline-container-org41ee652" class="outline-1">
+<h1 id="org41ee652">emacs calc のバグ？</h1>
+<div class="outline-text-1" id="text-org41ee652">
+<p>
+昨日emacs calc を使用して計算を行っていましたが、シンプルなバグ？
+に直面しました。
+</p>
+
+<p>
+calc を normal mode で使用し、
+</p>
+<pre class="example" id="orgdb81018">
+1: i sqrt(-3 - 7.79422863405 / pi)  1:  -2.34114929669
+
+' sqrt(3+9 sqrt(3)/2/pi) &lt;RET&gt;        = &lt;RET&gt;
+</pre>
+
+<p>
+（上の記法は下の行がキーボード入力、上の行がその結果の出力表示です。
+calc info も同じ記法で説明されているのでそれにならいました。）
+最初の入力でi が出てくるのも好きでないですが、最終的に数値を計算すると負に
+なってしまうというのがバグと思われます。
+</p>
+
+<p>
+さらに、
+</p>
+<pre class="example" id="org96de614">
+1:  i sqrt(-1 - 1.73205080757 / pi) + 1     1:  -0.2455235427
+
+' 1 + sqrt(1 + sqrt(3) / pi)                  = &lt;RET&gt;
+</pre>
+
+<p>
+sqrt の項が負のまま計算されてしまいます。
+</p>
+
+<p>
+こういうのを見ると emacs calc は正確性がないのかなぁと思えて他の
+ソフト、例えば octave に乗り換えようかなぁと思えてしまいます。
+emacs calc きっと少数派なのでこういうバグが直されずにそのままに
+なっているような気がします。
+</p>
+</div>
+</div>

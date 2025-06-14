@@ -1,0 +1,41 @@
+#+STARTUP: indent
+#+BEGIN_EXPORT html
+---
+layout: page
+date: 2025/06/14
+---
+#+END_EXPORT
+* emacs calc のバグ？
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+  昨日emacs calc を使用して計算を行っていましたが、シンプルなバグ？
+  に直面しました。
+
+  calc を normal mode で使用し、
+  #+begin_example
+  1: i sqrt(-3 - 7.79422863405 / pi)  1:  -2.34114929669
+
+  ' sqrt(3+9 sqrt(3)/2/pi) <RET>        = <RET>
+  #+end_example
+
+  （上の記法は下の行がキーボード入力、上の行がその結果の出力表示です。
+  calc info も同じ記法で説明されているのでそれにならいました。）
+  最初の入力でi が出てくるのも好きでないですが、最終的に数値を計算すると負に
+  なってしまうというのがバグと思われます。
+
+  さらに、
+  #+begin_example
+  1:  i sqrt(-1 - 1.73205080757 / pi) + 1     1:  -0.2455235427
+
+  ' 1 + sqrt(1 + sqrt(3) / pi)                  = <RET>
+  #+end_example
+
+  sqrt の項が負のまま計算されてしまいます。
+
+  こういうのを見ると emacs calc は正確性がないのかなぁと思えて他の
+  ソフト、例えば octave に乗り換えようかなぁと思えてしまいます。
+  emacs calc きっと少数派なのでこういうバグが直されずにそのままに
+  なっているような気がします。
+
+  
