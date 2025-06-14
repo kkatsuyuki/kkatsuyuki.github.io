@@ -1,4 +1,5 @@
 ((nil . ((org-html-toplevel-hlevel . 1)
+	 (org-export-with-toc . nil)
 	 (eval . (let ((proot (project-root (project-current)))) ;vc-root-dir function doesn't work maybe because vc elisp files have not been loaded.
 		   (setq org-publish-project-alist
 			 `(("mypage" :components ("root" "posts"))
