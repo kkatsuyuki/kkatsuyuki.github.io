@@ -1,0 +1,16 @@
+#+STARTUP: indent
+#+BEGIN_EXPORT html
+---
+layout: post
+date: 2026/03/20
+title: gnus で gmail を使用する
+---
+#+END_EXPORT
+
+大作なので、qiita に記事を書きました。
+
+https://qiita.com/kkatsuyuki/items/b7b5c0609f1ffb4115ec
+
+英語版も作りました。
+
+https://qiita.com/kkatsuyuki/items/096bda6b8916e40a1c42
