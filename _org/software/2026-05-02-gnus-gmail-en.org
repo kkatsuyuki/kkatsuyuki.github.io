@@ -1,0 +1,12 @@
+#+STARTUP: indent
+#+BEGIN_EXPORT html
+---
+layout: post
+date: 2026/05/02
+title: Using Gnus for Gmail
+---
+#+END_EXPORT
+
+This is the English version of the previous article.
+
+https://qiita.com/kkatsuyuki/items/096bda6b8916e40a1c42
